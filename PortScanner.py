@@ -23,9 +23,19 @@ def scan_port(ip, port, timeout):
         print("Not able to connect to: %s:%d" % (ip, port))
 
 
-# Get user input
+# Get the IP / domain from the user
 ip_domain = raw_input("Enter the ip or domain: ")
+if ip_domain == '':
+    print 'You must specify a host!'
+    sys.exit(0)
+
+# Get the port range from the user
 port = raw_input("Enter the port range (Ex 20-80): ")
+if port == '':
+    print 'You must specify a port range!'
+    sys.exit(0)
+
+# Optional: Get the timeout from the user
 timeout = raw_input("Timeout (Default=5): ")
 if not timeout:
     timeout = 5
@@ -39,5 +49,10 @@ except Exception:
     print 'There was an error resolving the domain'
     sys.exit(1)
 
-for port in range(int(port_range[0]), int(port_range[1])):
+# If the user only entered one port we will only scan the one port
+# otherwise scan the range
+if len(port_range) < 2:
     scan_port(ip, int(port), int(timeout))
+else:
+    for port in range(int(port_range[0]), int(port_range[1])+1):
+        scan_port(ip, int(port), int(timeout))

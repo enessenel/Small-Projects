@@ -17,22 +17,22 @@ def scan_port(ip, port, timeout):
     sock = connect_to_ip(ip, port)
 
     if sock:
-        print("Able to connect to: %s:%d" % (ip, port))
+        print('Able to connect to: {0}:{1}').format(ip, port)
         sock.close()
     else:
-        print("Not able to connect to: %s:%d" % (ip, port))
+        print('Not able to connect to: {0}:{1}').format(ip, port)
 
 
 # Get the IP / domain from the user
 ip_domain = raw_input("Enter the ip or domain: ")
 if ip_domain == '':
-    print 'You must specify a host!'
+    print('You must specify a host!')
     sys.exit(0)
 
 # Get the port range from the user
 port = raw_input("Enter the port range (Ex 20-80): ")
 if port == '':
-    print 'You must specify a port range!'
+    print('You must specify a port range!')
     sys.exit(0)
 
 # Optional: Get the timeout from the user
@@ -46,7 +46,7 @@ port_range = port.split("-")
 try:
     ip = socket.gethostbyname(ip_domain)
 except Exception:
-    print 'There was an error resolving the domain'
+    print('There was an error resolving the domain')
     sys.exit(1)
 
 # If the user only entered one port we will only scan the one port
